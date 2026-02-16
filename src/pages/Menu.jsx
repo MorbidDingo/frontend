@@ -5,16 +5,18 @@ import SearchBar from "../components/SearchBar";
 export default function Menu({ foods = [], onAdd }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredFoods = foods.filter(
-    (food) =>
-      food.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      food.desc.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (food.category && food.category.toLowerCase().includes(searchTerm.toLowerCase()))
+  const term = searchTerm.toLowerCase();
+
+  const filteredFoods = foods.filter((food) =>
+    food.name.toLowerCase().includes(term) ||
+    food.description.toLowerCase().includes(term) ||
+    (food.category && food.category.toLowerCase().includes(term))
   );
 
   return (
     <div className="container">
       <h2 className="mb-4">Menu</h2>
+
       <SearchBar
         placeholder="Search by name or description..."
         value={searchTerm}
@@ -24,7 +26,7 @@ export default function Menu({ foods = [], onAdd }) {
 
       <div className="row g-4">
         {filteredFoods.map((food) => (
-          <div key={food.id} className="col-sm-6 col-md-4 col-lg-3">
+          <div key={food._id} className="col-sm-6 col-md-4 col-lg-3">
             <FoodCard
               food={food}
               view="menu"
